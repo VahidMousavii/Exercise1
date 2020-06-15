@@ -1,6 +1,7 @@
 package service;
 
 import main.to.AccountTO;
+import main.to.CalculatedPaymentTO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,4 +47,23 @@ public class Payment {
         }
         return balanceList;
     }
+
+    public CalculatedPaymentTO calculateTotalCredit(List<AccountTO> paymentList) {
+        CalculatedPaymentTO calculatedPaymentTO = new CalculatedPaymentTO();
+        Long totalCredit = 0L;
+        Long totalDebt = 0L;
+        for (AccountTO accountTO : paymentList) {
+            if (accountTO.getType().equals("debtor")) {
+                totalDebt = accountTO.getAmount();
+                calculatedPaymentTO.setDebtorAccountNumber(accountTO.getAccNumber());
+            } else {
+                totalCredit = totalCredit + accountTO.getAmount();
+            }
+        }
+        calculatedPaymentTO.setTotalCredit(totalCredit);
+        calculatedPaymentTO.setTotalDebt(totalDebt);
+        return calculatedPaymentTO;
+    }
+
+
 }
