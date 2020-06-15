@@ -1,40 +1,39 @@
 package main.to;
 
 public class CalculatedPaymentTO {
-    private String totalCredit;
-    private String totalDebt;
-    private AccountTO debtorAccount;
+    private Long totalCredit;
+    private Long totalDebt;
+    private String debtorAccountNumber;
 
-    public CalculatedPaymentTO() {
-    }
+    public CalculatedPaymentTO() {}
 
-    public CalculatedPaymentTO(String totalCredit, String totalDebt, AccountTO debtorAccount) {
+    public CalculatedPaymentTO(Long totalCredit, Long totalDebt, String debtorAccountNumber) {
         this.totalCredit = totalCredit;
         this.totalDebt = totalDebt;
-        this.debtorAccount = debtorAccount;
+        this.debtorAccountNumber = debtorAccountNumber;
     }
 
-    public String getTotalCredit() {
+    public Long getTotalCredit() {
         return totalCredit;
     }
 
-    public void setTotalCredit(String totalCredit) {
+    public void setTotalCredit(Long totalCredit) {
         this.totalCredit = totalCredit;
     }
 
-    public String getTotalDebt() {
+    public Long getTotalDebt() {
         return totalDebt;
     }
 
-    public void setTotalDebt(String totalDebt) {
+    public void setTotalDebt(Long totalDebt) {
         this.totalDebt = totalDebt;
     }
 
-    public AccountTO getDebtorAccount() {
-        return debtorAccount;
+    public String getDebtorAccountNumber() {
+        return debtorAccountNumber;
     }
 
-    public void setDebtorAccount(AccountTO debtorAccount) {
-        this.debtorAccount = debtorAccount;
+    public void setDebtorAccountNumber(String debtorAccountNumber) {
+        this.debtorAccountNumber = debtorAccountNumber;
     }
 }
