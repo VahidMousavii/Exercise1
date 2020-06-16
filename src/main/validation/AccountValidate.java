@@ -2,6 +2,7 @@ package main.validation;
 
 import main.to.AccountTO;
 import main.to.CalculatedPaymentTO;
+import service.Payment;
 
 import java.util.List;
 
@@ -16,17 +17,16 @@ public class AccountValidate {
     }
 
     public void checkDebtorBalance(CalculatedPaymentTO calculatedPaymentTO, List<AccountTO> balanceList) throws Exception {
-        //peymayeshe kole acc ha dar balance list be manzore peyda kardane deptor balance
+        //peymayeshe kole acc ha dar balance list be manzore peyda kardane debtor balance
         for (AccountTO accountTO : balanceList) {
-            //check accountTO.getAccNumber barabar bashe ba accnumber bedehkar dar file payment
+            //checke accountTO.getAccNumber barabar bashe ba accnumber bedehkar dar file payment
             if (calculatedPaymentTO.getDebtorAccountNumber().equals(accountTO.getAccNumber())) {
-                //check mojodie acc bedehkar ba kole mablaghe hoghoghe karmandan
+                //checke mojodie sherkat ba kole mablaghe hoghoghe karmandan
                 if (calculatedPaymentTO.getTotalDebt() > accountTO.getAmount()) {
-                    throw new Exception("mojodire hesabe "+accountTO.getAccNumber()+" kafi nist");
+                    throw new Exception("mojodie hesabe " + accountTO.getAccNumber() + " kafi nist");
                 }
             }
         }
-
 
     }
 }
