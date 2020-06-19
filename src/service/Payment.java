@@ -33,33 +33,20 @@ public class Payment {
         return accountList;
     }
 
-    public void updateBalanceFile(List<AccountTO> balanceList) {
-        List<String> strings = new ArrayList<>();
-        for (AccountTO account : balanceList) {
-            strings.add(account.getAccNumber() + " " + account.getAmount());
-        }
-        try {
-            Files.write(Paths.get(StaticString.balancePath), strings, StandardCharsets.UTF_8);
-        } catch (IOException x) {
-            System.err.format("IOException: %s%n", x);
-        }
-    }
-
-    public List<AccountTO> balanceRead(String path) {
-        List<AccountTO> balanceList = new ArrayList<>();
+    public Map<String, AccountTO> balanceRead(String path) {
+        Map<String, AccountTO> balanceMap = new HashMap<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path))) {
             // read line by line
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(" ");
                 AccountTO account = new AccountTO(values[0], Long.parseLong(values[1]));
-                balanceList.add(account);
+                balanceMap.put(account.getAccNumber(), account);
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        return balanceList;
+        return balanceMap;
     }
 
     public CalculatedPaymentTO calculateTotalCredit(List<AccountTO> paymentList) {
@@ -67,7 +54,7 @@ public class Payment {
         Long totalCredit = 0L;
         Long totalDebt = 0L;
         for (AccountTO accountTO : paymentList) {
-            if (accountTO.getType().equals("debtor")) {
+            if (accountTO.getType().equals(StaticString.debtor)) {
                 totalDebt = accountTO.getAmount();
                 calculatedPaymentTO.setDebtorAccountNumber(accountTO.getAccNumber());
             } else {
@@ -79,26 +66,33 @@ public class Payment {
         return calculatedPaymentTO;
     }
 
-    public List<AccountTO> payment(List<AccountTO> paymentList, List<AccountTO> balanceList, CalculatedPaymentTO calculatedPaymentTO) {
-        AccountTO debtorAcc = null;
-        List<String> strings = new ArrayList<>();
-        for (AccountTO accountTO : balanceList) {
-            if (accountTO.getAccNumber().equals(calculatedPaymentTO.getDebtorAccountNumber())) {
-                debtorAcc = accountTO;
-            }
-        }
+    public void payment(List<AccountTO> paymentList, Map<String, AccountTO> balanceMap, CalculatedPaymentTO calculatedPaymentTO) throws Exception {
+        List<String> transactionList = new ArrayList<>();
 
-        for (AccountTO accountTO : paymentList) {
-            for (AccountTO balanceTO : balanceList) {
-                if (balanceTO.getAccNumber().equals(accountTO.getAccNumber()) && accountTO.getType().equals(StaticString.creditor)) {
-                    balanceTO.setAmount(balanceTO.getAmount() + accountTO.getAmount());
-                    debtorAcc.setAmount(debtorAcc.getAmount() - accountTO.getAmount());
-                    strings.add(debtorAcc.getAccNumber() + " " + accountTO.getAccNumber() + " " + accountTO.getAmount());
-                }
+        for (AccountTO paymentTO : paymentList) {
+            if (paymentTO.getType().equals(StaticString.creditor)) {
+                AccountTO creditorBalanceTO = balanceMap.get(paymentTO.getAccNumber());
+                creditorBalanceTO.setAmount(paymentTO.getAmount() + creditorBalanceTO.getAmount());
+                AccountTO debtorAcc = balanceMap.get(calculatedPaymentTO.getDebtorAccountNumber());
+                debtorAcc.setAmount(debtorAcc.getAmount() - paymentTO.getAmount());
+                transactionList.add(debtorAcc.getAccNumber() + " " + paymentTO.getAccNumber() + " " + paymentTO.getAmount());
+
+            }
+
+        }
+        appendTransaction(transactionList);
+    }
+
+    public void updateBalanceFile(Map<String, AccountTO> balanceMap) {
+        List<String> strings = new ArrayList<>();
+        for (AccountTO balanceTO : balanceMap.values()) {
+            strings.add(balanceTO.getAccNumber() + " " + balanceTO.getAmount());
+            try {
+                Files.write(Paths.get(StaticString.balancePath), strings, StandardCharsets.UTF_8);
+            } catch (IOException x) {
+                System.err.format("IOException: %s%n", x);
             }
         }
-        appendTransaction(strings);
-        return balanceList;
     }
 
     public void appendTransaction(List<String> strings) {

@@ -8,21 +8,22 @@ import service.Payment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         Payment payment = new Payment();
 
-        List<AccountTO> paymentListAccount = payment.paymentRead(StaticString.paymentPath);
+        List<AccountTO> paymentList = payment.paymentRead(StaticString.paymentPath);
 
-        List<AccountTO> balanceListAccount = payment.balanceRead(StaticString.balancePath);
+        Map<String,AccountTO> balanceMap = payment.balanceRead(StaticString.balancePath);
 
-        CalculatedPaymentTO calculatedPaymentTO = payment.calculateTotalCredit(paymentListAccount);
+        CalculatedPaymentTO calculatedPaymentTO = payment.calculateTotalCredit(paymentList);
 
         AccountValidate accountValidate = new AccountValidate();
         accountValidate.checkTotalDebtWithTotalCredit(calculatedPaymentTO);
-        accountValidate.checkDebtorBalance(calculatedPaymentTO, balanceListAccount);
-        List<AccountTO> paymentList = payment.payment(paymentListAccount, balanceListAccount, calculatedPaymentTO);
-        payment.updateBalanceFile(paymentList);
+        accountValidate.checkDebtorBalance(calculatedPaymentTO, balanceMap);
+        payment.payment(paymentList,balanceMap,calculatedPaymentTO);
+        payment.updateBalanceFile(balanceMap);
     }
 }
