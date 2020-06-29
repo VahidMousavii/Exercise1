@@ -1,24 +1,26 @@
-package main.to;
+package ir.dotin.dto;
 
-public class AccountTO {
+import ir.dotin.service.TransactionService;
+
+public class AccountDTO extends TransactionService {
     private String type;
     private String accNumber;
     private Long amount;
 
 
-    public AccountTO() {
+    public AccountDTO() {
     }
 
-    public AccountTO(String type) {
+    public AccountDTO(String type) {
         this.type = type;
     }
 
-    public AccountTO(String accNumber, Long amount) {
+    public AccountDTO(String accNumber, Long amount) {
         this.accNumber = accNumber;
         this.amount = amount;
     }
 
-    public AccountTO(String type, String accNumber, Long amount) {
+    public AccountDTO(String type, String accNumber, Long amount) {
         this.type = type;
         this.accNumber = accNumber;
         this.amount = amount;
@@ -52,8 +54,6 @@ public class AccountTO {
     @Override
     public String toString() {
         return
-                "type='" + type + '\'' +
-                        ", accNumber='" + accNumber + '\'' +
-                        ", amount=" + amount;
+                        accNumber + amount;
     }
 }

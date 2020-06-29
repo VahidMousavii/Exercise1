@@ -1,13 +1,14 @@
-package main.to;
+package ir.dotin.dto;
 
-public class CalculatedPaymentTO {
-    private Long totalCredit;
-    private Long totalDebt;
-    private String debtorAccountNumber;
 
-    public CalculatedPaymentTO() {}
+public class CalculatedPaymentDTO {
+    private Long totalCredit;              // majmoe kole hughughe karmandan
+    private Long totalDebt;                // bedehie kole sherkat be karmandan
+    private String debtorAccountNumber;    // shomare hesabe sherkat ke bayad az aan bardasht beshavad
 
-    public CalculatedPaymentTO(Long totalCredit, Long totalDebt, String debtorAccountNumber) {
+    public CalculatedPaymentDTO() {}
+
+    public CalculatedPaymentDTO(Long totalCredit, Long totalDebt, String debtorAccountNumber) {
         this.totalCredit = totalCredit;
         this.totalDebt = totalDebt;
         this.debtorAccountNumber = debtorAccountNumber;

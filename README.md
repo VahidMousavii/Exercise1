@@ -7,4 +7,6 @@
  99/03/27 | piyade sazie method updateBalanceFile() be manzoore update file balance.txt ba'd az har tarakonesh / piyade sazie method payment() ke be ezaye har recorde creditor mablaghe aan ra az mojudie hesabe sherkat (debtor) kam mikonad va be mojudie hesabe karmand ezafe mikonad  / dar nahayat in etelaat be soorate List be methode appendTransaction() pass dade mishavand ta dar file transaction.txt be soorate append write shavand.     
  99/03/28 | tatil
  99/03/29 | tatil
- 99/03/30 | tatil : taghire balanceList be balanceMap va behtar shodane performance
+ 99/03/30 | tatil : taghire balanceList be balanceMap va behtar shodane performance - etmame proje
+ 99/04/07 | taghire class ha + package ha + refactor + ezafe kardane pom.xml
+ 99/04/08 | taghire method ha + taghire exception ha
