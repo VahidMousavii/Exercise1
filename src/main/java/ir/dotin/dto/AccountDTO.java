@@ -1,8 +1,6 @@
 package ir.dotin.dto;
 
-import ir.dotin.service.TransactionService;
-
-public class AccountDTO extends TransactionService {
+public class AccountDTO {
     private String type;
     private String accNumber;
     private Long amount;
