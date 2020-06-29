@@ -13,22 +13,6 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-   /*
-
-        List<AccountDTO> paymentList = payment.paymentRead(StaticString.paymentPath);
-
-        Map<String,AccountDTO> balanceMap = payment.balanceRead(StaticString.balancePath);
-
-        CalculatedPaymentDTO calculatedPaymentDTO = payment.calculateTotalCredit(paymentList);
-
-        AccountValidate accountValidate = new AccountValidate();
-        accountValidate.checkTotalDebtWithTotalCredit(calculatedPaymentDTO);
-        accountValidate.checkDebtorBalance(calculatedPaymentDTO, balanceMap);
-        payment.payment(paymentList,balanceMap,calculatedPaymentDTO);
-        payment.updateBalanceFile(balanceMap);
-    }*/
-
-
         PaymentService paymentService = new PaymentService();
         paymentService.paymentWriter();
         BalanceService balanceService = new BalanceService();
