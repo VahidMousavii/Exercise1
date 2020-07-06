@@ -52,6 +52,6 @@ public class AccountDTO {
     @Override
     public String toString() {
         return
-                        accNumber + amount;
+                accNumber + " " + amount;
     }
 }

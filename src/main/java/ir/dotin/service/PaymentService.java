@@ -19,7 +19,27 @@ public class PaymentService {
     // tolide file payment.txt
     public void paymentWriter() {
         Charset utf8 = StandardCharsets.UTF_8;
-        List<String> pList = Arrays.asList("debtor 1.10.100.1 1000", "creditor 1.20.100.1 300", "creditor 1.20.100.2 700");
+        List<String> pList = Arrays.asList("debtor 1.10.100.1 6000",
+                "creditor 1.20.100.1 300",
+                "creditor 1.20.100.2 300",
+                "creditor 1.20.100.3 300",
+                "creditor 1.20.100.4 300",
+                "creditor 1.20.100.5 300",
+                "creditor 1.20.100.6 300",
+                "creditor 1.20.100.7 300",
+                "creditor 1.20.100.8 300",
+                "creditor 1.20.100.9 300",
+                "creditor 1.20.100.10 300",
+                "creditor 1.20.100.11 300",
+                "creditor 1.20.100.12 300",
+                "creditor 1.20.100.13 300",
+                "creditor 1.20.100.14 300",
+                "creditor 1.20.100.15 300",
+                "creditor 1.20.100.16 300",
+                "creditor 1.20.100.17 300",
+                "creditor 1.20.100.18 300",
+                "creditor 1.20.100.19 300",
+                "creditor 1.20.100.20 300");
 
         try {
             // If the file doesn't exists, create and write to it
@@ -66,26 +86,4 @@ public class PaymentService {
         calculatedPaymentDTO.setTotalDebt(totalDebt);
         return calculatedPaymentDTO;
     }
-
-    // anjame amaliate kasre pul az hesabe sherkat va afzayesh be hesabe karmand
-    public void payment(List<AccountDTO> paymentList, Map<String, AccountDTO> balanceMap, CalculatedPaymentDTO calculatedPaymentDTO) throws Exception {
-        List<TransactionDTO> transactionList = new ArrayList<>();
-
-        for (AccountDTO paymentTO : paymentList) {
-            if (paymentTO.getType().equals("creditor")) {
-                AccountDTO creditorBalanceTO = balanceMap.get(paymentTO.getAccNumber());
-                //ezafe kardan be mojudie hesabe karmand
-                creditorBalanceTO.setAmount(paymentTO.getAmount() + creditorBalanceTO.getAmount());
-                AccountDTO debtorAcc = balanceMap.get(calculatedPaymentDTO.getDebtorAccountNumber());
-                //kam kardan az mojudie hesabe sherkat
-                debtorAcc.setAmount(debtorAcc.getAmount() - paymentTO.getAmount());
-                //ezafe kardane record ha be liste transaction
-                transactionList.add(new TransactionDTO(debtorAcc.getAccNumber(), paymentTO.getAccNumber(), paymentTO.getAmount()));
-            }
-        }
-        //calling appendTransaction() for writing into transaction.txt
-        TransactionService transactionService = new TransactionService();
-        transactionService.appendTransaction(transactionList);
-    }
-
 }
