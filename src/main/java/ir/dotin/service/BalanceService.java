@@ -9,10 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class BalanceService {
-    //ijaade file balance.txt
+    // Tolide file balance.txt
     public void balanceWriter() {
         Charset utf8 = StandardCharsets.UTF_8;
         List<String> bList = Arrays.asList("1.10.100.1 6000",
@@ -38,20 +37,18 @@ public class BalanceService {
                 "1.20.100.20 0");
 
         try {
-            // If the file doesn't exists, create and write to it
-            // If the file exists, truncate (remove all content) and write to it
             Files.write(Paths.get("balance.txt"), bList, utf8);
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
         }
     }
 
-    //khaandane file balance va return 1Map
+    // Khoondane file balance va return 1Map
     public Map<String, AccountDTO> balanceRead(String path) {
 
         Map<String, AccountDTO> balanceMap = new HashMap<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path))) {
-            // read line by line
+            // Read line by line
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(" ");
@@ -64,7 +61,7 @@ public class BalanceService {
         return balanceMap;
     }
 
-    //update kardane file balance.txt
+    // Update kardane file balance.txt
     public void updateBalanceFile(Map<String, AccountDTO> balanceMap) {
         List<String> strings = new ArrayList<>();
         for (AccountDTO balanceTO : balanceMap.values()) {

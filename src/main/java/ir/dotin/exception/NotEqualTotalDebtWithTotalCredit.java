@@ -10,6 +10,8 @@ public class NotEqualTotalDebtWithTotalCredit extends Exception {
     }
 
     public String toString() {
-        return " dar ejraye barname khatayi rokh dade: mablaghe bedehi ba mablaghe bestankar barabar nist. meghdare mablaghe bedehie sherkat = " + mablagheBedehi+ ". mablaghe kole hughughe karmandan = " + hughugheKarmandan;
+        return " dar ejraye barname khatayi rokh dade: mablaghe bedehi ba mablaghe bestankar barabar nist." +
+                " meghdare mablaghe bedehie sherkat = " + mablagheBedehi+
+                ". mablaghe kole hughughe karmandan = " + hughugheKarmandan;
     }
 }

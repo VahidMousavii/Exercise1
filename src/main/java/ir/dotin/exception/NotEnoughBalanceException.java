@@ -12,6 +12,9 @@ public class NotEnoughBalanceException extends Exception {
     }
 
     public String toString() {
-        return "dar ejraye barname khatayi rokh dade: meghdare mojudie hesab be shomareye: " + shomareHesab + "  kafi nemibashad. mableghe mojodi= " + mablagheMojodi + ". mablaghe bedehi= " + mablagheBedehi;
+        return "dar ejraye barname khatayi rokh dade: meghdare mojudie hesab be shomareye: " + shomareHesab
+                + "  kafi nemibashad." +
+                " mableghe mojodi= " + mablagheMojodi + ". " +
+                "mablaghe bedehi= " + mablagheBedehi;
     }
 }

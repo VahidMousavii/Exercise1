@@ -2,7 +2,6 @@ package ir.dotin.service;
 
 import ir.dotin.dto.AccountDTO;
 import ir.dotin.dto.CalculatedPaymentDTO;
-import ir.dotin.dto.TransactionDTO;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,10 +12,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class PaymentService {
-    // tolide file payment.txt
+    // Tolide file payment.txt
     public void paymentWriter() {
         Charset utf8 = StandardCharsets.UTF_8;
         List<String> pList = Arrays.asList("debtor 1.10.100.1 6000",
@@ -42,26 +40,22 @@ public class PaymentService {
                 "creditor 1.20.100.20 300");
 
         try {
-            // If the file doesn't exists, create and write to it
-            // If the file exists, truncate (remove all content) and write to it
             Files.write(Paths.get("payment.txt"), pList, utf8);
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
         }
     }
 
-    // khandane file payment.txt
+    // Khandane file payment.txt az system
     public List<AccountDTO> paymentRead(String path) {
         List<AccountDTO> accountList = new ArrayList<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(path))) {
-            // read line by line
+            // Read line by line
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(" ");
                 AccountDTO account = new AccountDTO(values[0], values[1], Long.parseLong(values[2]));
-
                 accountList.add(account);
-
             }
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
@@ -69,7 +63,7 @@ public class PaymentService {
         return accountList;
     }
 
-    //mohasebeye majmooE bedehie sherkat va meghdare kolle hughughe karmandan
+    // Mohasebeye majmooE bedehie sherkat va meghdare kolle hughughe karmandan
     public CalculatedPaymentDTO calculateTotalCredit(List<AccountDTO> paymentList) {
         CalculatedPaymentDTO calculatedPaymentDTO = new CalculatedPaymentDTO();
         Long totalCredit = 0L;

@@ -1,6 +1,5 @@
 package ir.dotin.dto;
 
-import java.util.stream.IntStream;
 
 public class TransactionDTO implements CharSequence {
     private String debtorACC;

@@ -8,6 +8,7 @@ public class NoSameAccountInBalanceException extends Exception {
     }
 
     public String toString() {
-        return " dar ejraye barname khatayi rokh dade: hesab be shomareye: " + exceptionContent + " dar file balance mojud nemibashad.";
+        return " dar ejraye barname khatayi rokh dade: " +
+                "hesab be shomareye: " + exceptionContent + " dar file balance mojud nemibashad.";
     }
 }
